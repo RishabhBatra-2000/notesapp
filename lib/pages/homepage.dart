@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:notesapp/pages/addnote.dart';
+import 'package:notesapp/pages/local_auth_api.dart';
 import 'package:notesapp/pages/viewnote.dart';
 
 class Homepage extends StatefulWidget {
@@ -28,11 +29,13 @@ class _HomepageState extends State<Homepage> {
     Color.fromRGBO(251, 242, 192, 10),
     Color.fromRGBO(156, 222, 159, 10),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          onPressed: () {
+          onPressed: () async {
+            
             //onPressed function
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: ((context) => AddNote())))

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class ViewNote extends StatefulWidget {
   final Map data;
@@ -11,6 +12,31 @@ class ViewNote extends StatefulWidget {
   @override
   State<ViewNote> createState() => _ViewNoteState();
 }
+
+class ImagePickerWidget extends StatefulWidget {
+  final Function(XFile?) onImageSelected;
+
+  ImagePickerWidget({required this.onImageSelected});
+
+  @override
+  _ImagePickerWidgetState createState() => _ImagePickerWidgetState();
+}
+
+class _ImagePickerWidgetState extends State<ImagePickerWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: _selectImage,
+      child: Text('Select image'),
+    );
+  }
+
+  void _selectImage() async {
+    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    widget.onImageSelected(image);
+  }
+}
+
 
 class _ViewNoteState extends State<ViewNote> {
   String title = '';
@@ -39,7 +65,10 @@ class _ViewNoteState extends State<ViewNote> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(Colors.grey[700])),
-                  ), //
+                  ),
+
+                  //  ElevatedButton(onPressed:, child: child),
+                  
                   ElevatedButton(
                     onPressed: delete,
                     child: Icon(
